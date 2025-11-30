@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ensalamento com Grafos | Prof. Benevides</title>
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS CYBERPUNK SELF-CONTAINED --- */
+        :root {
+            --bg-color: #050505;
+            --text-main: #e0e0e0;
+            --text-dim: #888;
+            --neon-green: #00ff41; 
+            --neon-pink: #ff0055; 
+            --neon-cyan: #00f3ff; 
+            --neon-yellow: #fcee0a; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999; pointer-events: none; background-size: 100% 2px, 3px 100%;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; position: relative; z-index: 1; }
+
+        /* HEADER DO ARTIGO */
+        .article-content {
+            background: rgba(10, 10, 16, 0.9);
+            padding: 3rem;
+            border-left: 4px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.05);
+            margin-top: 2rem;
+        }
+
+        h1 {
+            font-family: 'Fira Code', monospace;
+            color: var(--neon-cyan);
+            font-size: 2.5rem;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+
+        .article-meta {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin: 1rem 0 2rem 0;
+            border-bottom: 1px dashed var(--text-dim);
+            padding-bottom: 1rem;
+            display: flex; gap: 1.5rem;
+        }
+
+        /* CONTEÚDO */
+        h2 { color: var(--neon-green); margin-top: 3rem; margin-bottom: 1rem; font-family: 'Fira Code', monospace; }
+        
+        p { margin-bottom: 1.5rem; font-size: 1.1rem; color: #ccc; text-align: justify; }
+        
+        strong { color: var(--text-main); font-weight: bold; }
+
+        code { background: #1a1a20; color: var(--neon-pink); padding: 0.2rem 0.4rem; font-family: 'Fira Code', monospace; border: 1px solid #333; }
+
+        /* ELEMENTOS VISUAIS TECH */
+        pre {
+            background: #080808 !important;
+            padding: 1.5rem !important;
+            border: 1px solid var(--text-dim);
+            border-left: 4px solid var(--neon-yellow) !important;
+            overflow-x: auto;
+            color: var(--neon-green);
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        .ascii-art {
+            color: var(--neon-pink);
+            font-size: 0.8rem;
+            line-height: 1.2;
+            text-align: center;
+            margin: 2rem 0;
+            white-space: pre;
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
+
+        blockquote {
+            border-left: 2px solid var(--neon-pink);
+            padding-left: 1.5rem;
+            color: var(--text-dim);
+            margin: 2rem 0;
+            background: rgba(255, 0, 85, 0.05);
+            padding: 1rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Fira Code', monospace;
+            text-decoration: none;
+        }
+        .back-btn:hover { background: var(--neon-cyan); color: #000; }
+
+        @media (max-width: 768px) { h1 { font-size: 1.8rem; } .article-content { padding: 1.5rem; } }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <a href="index.html" class="back-btn"><< TERMINAL_ROOT</a>
+
+        <article class="article-content">
+            <header>
+                <h1>O Fim dos Conflitos de Horário: Grafos no Ensalamento</h1>
+                <div class="article-meta">
+                    <span>> status: published</span>
+                    <span>> module: graph_theory</span>
+                    <span>> complexity: medium</span>
+                </div>
+            </header>
+
+            <div class="article-body">
+                <p>Todo início de ano letivo é a mesma história: coordenadores pedagógicos presos em uma sala com post-its coloridos, tentando encaixar 15 turmas, 20 professores e restrições infinitas. O ensalamento manual é um problema NP-difícil disfarçado de rotina.</p>
+                
+                <p>Mas e se olharmos para a escola como um <strong>Grafo Matemático</strong>?</p>
+
+                <h2>// 01. A MODELAGEM (NODES & EDGES)</h2>
+                <p>A teoria dos grafos nos permite traduzir o caos escolar em uma estrutura lógica:</p>
+                <ul>
+                    <li><strong>Vértices (Nós):</strong> Cada aula que precisa acontecer (ex: Mat-9A, Port-8B).</li>
+                    <li><strong>Arestas (Linhas):</strong> Um conflito. Se o Professor João dá aula de Mat-9A e Port-8B, existe uma linha conectando esses dois nós. Eles não podem acontecer ao mesmo tempo.</li>
+                </ul>
+
+                <div class="ascii-art">
+       (MAT-9A) ------- (PORT-8B)
+          |                 |
+          |   CONFLITO!     |
+          |                 |
+       (HIST-9A)            |
+          \_________________/
+          
+    [VISUALIZAÇÃO ABSTRATA DE CONFLITOS]
+                </div>
+
+                <h2>// 02. ALGORITMO DE COLORAÇÃO</h2>
+                <p>Aqui entra a mágica: o problema do ensalamento é, matematicamente, um problema de <strong>Coloração de Vértices</strong>.</p>
+                <p>O objetivo é colorir cada nó de forma que dois nós conectados não tenham a mesma cor. Se traduzirmos "Cor" para "Horário" (ex: Cor Vermelha = Segunda 07:30), resolvemos a grade.</p>
+
+                <blockquote>
+                    WARNING: O objetivo é encontrar o "Número Cromático" mínimo, ou seja, a menor quantidade de horários necessários para acomodar todas as aulas sem conflitos.
+                </blockquote>
+
+                <h2>// 03. IMPLEMENTAÇÃO EM PYTHON</h2>
+                <p>Não precisamos resolver isso no papel. Usando a biblioteca <code>NetworkX</code>, podemos automatizar a busca pela grade perfeita em milissegundos.</p>
+                <p>Abaixo, um protótipo do script que desenvolvi para simular essa alocação:</p>
+
+                <pre>
+import networkx as nx
+import matplotlib.pyplot as plt
+
+# 1. Criando o Grafo Escolar
+G = nx.Graph()
+
+# 2. Definindo Aulas (Nós)
+aulas = ["Matematica_9A", "Portugues_9A", "Matematica_8B", "Historia_9A"]
+G.add_nodes_from(aulas)
+
+# 3. Definindo Conflitos (Arestas)
+# Ex: Mesma turma (9A) não pode ter Mat e Hist ao mesmo tempo
+# Ex: Mesmo professor não pode estar em duas salas
+conflitos = [
+    ("Matematica_9A", "Historia_9A"), # Mesma Turma
+    ("Matematica_9A", "Matematica_8B"), # Mesmo Professor
+    ("Portugues_9A", "Historia_9A")
+]
+G.add_edges_from(conflitos)
+
+# 4. Aplicando Algoritmo de Coloração (Greedy)
+solucao = nx.coloring.greedy_color(G, strategy="largest_first")
+
+# Output: {Aula: Horário_ID}
+print("Alocação Otimizada:", solucao)
+# Resultado: {'Matematica_9A': 0, 'Historia_9A': 1, ...}
+</pre>
+
+                <h2>// 04. RESULTADO NA PRÁTICA</h2>
+                <p>Ao aplicar essa lógica, transformamos dias de trabalho manual em uma execução de script. Além de evitar erros humanos (dois professores na mesma sala), o algoritmo pode ser ajustado para otimizar "janelas" e preferências dos docentes.</p>
+                
+                <p>Isso não é substituir o professor pela máquina, é usar a máquina para que o professor tenha tempo de ser professor.</p>
+            </div>
+            
+            <footer style="margin-top: 3rem; border-top: 1px solid #333; padding-top: 1rem; font-size: 0.8rem; color: #666;">
+                <p>EOF // REF: ScienceDirect - Graph Coloring for Timetabling</p>
+            </footer>
+        </article>
+
+    </div>
+
+</body>
+</html>
