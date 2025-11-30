@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Data & AI | Portfólio</title>
+    <!-- Fontes Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS SETUP --- */
+        :root {
+            --bg-color: #050505;
+            --card-bg: #0a0a10;
+            --text-main: #e0e0e0;
+            --text-dim: #888;
+            
+            /* Paleta Cyberpunk */
+            --neon-green: #00ff41; 
+            --neon-pink: #ff0055; 
+            --neon-cyan: #00f3ff; 
+            --neon-yellow: #fcee0a; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Scanline Overlay (Efeito TV) */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- HEADER --- */
+        header {
+            margin-bottom: 4rem;
+            border-bottom: 1px solid var(--text-dim);
+            padding-bottom: 2rem;
+        }
+
+        .terminal-text {
+            color: var(--neon-green);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .title-huge {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 4rem;
+            color: var(--neon-green);
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            cursor: crosshair;
+        }
+
+        .subtitle {
+            font-family: 'Fira Code', monospace;
+            color: var(--neon-cyan);
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero-desc {
+            margin-top: 2rem;
+            max-width: 600px;
+            color: var(--text-dim);
+            border-left: 2px solid var(--neon-cyan);
+            padding-left: 1rem;
+        }
+
+        /* --- CARDS --- */
+        .cmd-line {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .cyber-card {
+            background: var(--card-bg);
+            border: 1px solid var(--text-dim);
+            position: relative;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            /* Recorte Tech */
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 90% 100%, 0 100%);
+        }
+
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--neon-cyan);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--neon-pink);
+            box-shadow: -5px 5px 0px rgba(255, 0, 85, 0.2);
+        }
+
+        .cyber-card:hover::before { transform: scaleX(1); }
+
+        .cyber-card h3 {
+            color: var(--neon-yellow);
+            font-family: 'Fira Code', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .tag-container {
+            margin-top: auto;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding-top: 1.5rem;
+        }
+
+        .cyber-tag {
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .cyber-tag:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-color);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 5rem;
+            border-top: 1px dashed var(--text-dim);
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.8rem;
+        }
+
+        /* --- GLITCH HOVER ANIMATION --- */
+        .cyber-card:hover h3 {
+            animation: glitch-anim 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: var(--neon-pink);
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .title-huge { font-size: 2.2rem; }
+            .cyber-card { clip-path: none; border-bottom: 4px solid var(--neon-cyan); }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="terminal-text">
+                > user: @escola_prof<br>
+                > status: online<br>
+                > location: paraná_br<br>
+                > loading modules: [educação, machine_learning, python]... OK
+            </div>
+            
+            <div class="glitch-wrapper">
+                <!-- Coloque seu nome no atributo data-value -->
+                <h1 class="title-huge" data-value="PROFESSOR_BENEVIDES">PROFESSOR_BENEVIDES</h1>
+            </div>
+            <h2 class="subtitle">// Engenharia de IA & Educação Pública</h2>
+            
+            <p class="hero-desc">
+                Hackeando a sala de aula com ciência de dados. Transformando o sistema educacional através de inteligência artificial aplicada e análise preditiva.
+            </p>
+        </header>
+
+        <!-- PROJETOS -->
+        <main>
+            <div class="cmd-line">
+                <span style="color: var(--neon-pink); font-weight: bold;">root@portfolio:~/projetos$</span>
+                <span style="background: var(--neon-pink); width: 10px; height: 1.2rem; display: inline-block; animation: blink 1s infinite;"></span>
+            </div>
+
+            <div class="projects-grid">
+                
+                <!-- CARD 1 -->
+                <a href="#" class="cyber-card">
+                    <h3>DADOS_DO_PARANÁ</h3>
+                    <p>Análise exploratória dos microdados do Saeb e notas das escolas estaduais. Visualização de gargalos no ensino de matemática.</p>
+                    <div class="tag-container">
+                        <span class="cyber-tag">Python</span>
+                        <span class="cyber-tag">Pandas</span>
+                        <span class="cyber-tag">Educação</span>
+                    </div>
+                </a>
+
+                <!-- CARD 2 -->
+                <a href="#" class="cyber-card">
+                    <h3>PREVISÃO_DE_EVASÃO</h3>
+                    <p>Modelo preditivo utilizando Random Forest para identificar alunos em risco de evasão escolar baseado em frequência e notas.</p>
+                    <div class="tag-container">
+                        <span class="cyber-tag">Scikit-Learn</span>
+                        <span class="cyber-tag">ML</span>
+                        <span class="cyber-tag">Gestão</span>
+                    </div>
+                </a>
+
+                <!-- CARD 3 -->
+                <a href="#" class="cyber-card">
+                    <h3>GERADOR_DE_QUESTÕES</h3>
+                    <p>Engenharia de Prompt aplicada para criar questões estilo ENEM automaticamente a partir de textos base.</p>
+                    <div class="tag-container">
+                        <span class="cyber-tag">OpenAI API</span>
+                        <span class="cyber-tag">NLP</span>
+                        <span class="cyber-tag">Automação</span>
+                    </div>
+                </a>
+
+            </div>
+        </main>
+
+        <footer>
+            <p>SYSTEM.EXIT(0) // DEVELOPED BY PROF_BENEVIDES</p>
+            <p style="margin-top: 0.5rem;">Licença MIT - Open Source Education</p>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT EMBUTIDO -->
+    <script>
+        // Configuração das letras para o efeito Matrix
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&[]{}<>";
+        
+        // Seleciona o elemento do título
+        const h1 = document.querySelector("h1");
+
+        // Função do efeito Glitch
+        const runGlitch = (target) => {
+            if(!target) return;
+            
+            let iteration = 0;
+            const originalText = target.dataset.value;
+            
+            // Limpa intervalo anterior se existir para evitar sobreposição
+            if(target.interval) clearInterval(target.interval);
+
+            target.interval = setInterval(() => {
+                target.innerText = originalText
+                    .split("")
+                    .map((letter, index) => {
+                        if(index < iteration) {
+                            return originalText[index];
+                        }
+                        return letters[Math.floor(Math.random() * letters.length)]
+                    })
+                    .join("");
+                
+                if(iteration >= originalText.length){ 
+                    clearInterval(target.interval);
+                }
+                
+                iteration += 1 / 3;
+            }, 30);
+        }
+
+        // Executa ao carregar a página
+        window.onload = () => {
+            runGlitch(h1);
+            console.log("%c SYSTEM READY ", "background: #00ff41; color: black; font-size: 20px; padding: 5px;");
+        };
+
+        // Executa ao passar o mouse
+        if(h1) {
+            h1.onmouseover = event => runGlitch(event.target);
+        }
+    </script>
+</body>
+</html>
